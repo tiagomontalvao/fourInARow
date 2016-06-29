@@ -4,7 +4,7 @@
 #include <ctime>
 using namespace std;
 
-#include "playe.h"
+#include "player.h"
 
 Player::Player (int _Nrows, int _Ncols) {
 	Nrows = _Nrows;
@@ -13,7 +13,7 @@ Player::Player (int _Nrows, int _Ncols) {
 }
 
 int Player::getMove(pair<int,int> lastMove) {
-	if (lastMove != {-1,-1}) {
+	if (lastMove != make_pair(-1,-1)) {
 		int lastCol = lastMove.second;
 		lastEnemyMoves.push_back(lastCol);
 		height[lastCol]++;

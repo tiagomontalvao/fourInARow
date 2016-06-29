@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <vector>
 #include <ctime>
+#include <unistd.h>
 using namespace std;
 
 #include "bot.h"
@@ -10,10 +11,10 @@ using namespace std;
 #define BLU   "\x1B[34m"
 #define RESET "\x1B[0m"
 
-int Nrows, Ncols, row, col;
+int Nrows, Ncols;
 
 void printTable(vector<vector<int>>& grid) {
-	if (system("CLS")) system("clear");
+	system("clear");
 	printf("+");
 	for (int i = 0; i < Ncols; i++)
 		printf("---+");
@@ -28,8 +29,6 @@ void printTable(vector<vector<int>>& grid) {
 				printf(YEL " %c " RESET "|", 'O');
 			} else {
 				printf("   |");
-				row = i;
-				col = j;
 			}
 		}
 		printf("\n+");
@@ -103,6 +102,12 @@ void makeMove(vector<vector<int>>& grid, vector<int>& height, int mov, int& turn
 		printf("Invalid move of bot #%d\n", turn+1);
 		exit(0);
 	}
+	for (int i = 0; i <= Nrows-1-height[mov]; i++) {
+		grid[i][mov] = turn ? 2 : 1;
+		printTable(grid);
+		usleep(60000);		
+		grid[i][mov] = 0;
+	}
 	move = make_pair(Nrows-1-height[mov], mov);
 	grid[Nrows-1-height[mov]++][mov] = turn ? 2 : 1;
 	turn = 1 - turn;
@@ -110,10 +115,10 @@ void makeMove(vector<vector<int>>& grid, vector<int>& height, int mov, int& turn
 
 int main() {
 	int mov, turn = 0;
-	pair<int,int> piece;
+	pair<int,int> piece = {-1,-1};
 	srand(time(NULL));
 	Nrows = 6; Ncols = 7;
-	vector<vector<int>> grid(Nrows, vector<int>(Ncols));
+	vector<vector<int>> grid(Nrows, vector<int>(Ncols, 0));
 	vector<int> height(Ncols, 0);
 	Bot bot1(Nrows, Ncols);
 	do {
@@ -127,6 +132,6 @@ int main() {
 		}
 	} while (!won(grid, piece));
 	printTable(grid);
-	puts("Yey!");
+	printf("You %s!\n", turn ? "won" : "lost");
 	return 0;
 }

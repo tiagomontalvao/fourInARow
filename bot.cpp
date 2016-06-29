@@ -13,13 +13,22 @@ Bot::Bot (int _Nrows, int _Ncols) {
 }
 
 int Bot::getMove(pair<int,int> lastMove) {
-	int lastCol = lastMove.second;
-	lastEnemyMoves.push_back(lastCol);
-	height[lastCol]++;
+	int lastCol = -1;
+	if (lastMove != make_pair(-1,-1)) {
+		lastCol = lastMove.second;
+		lastEnemyMoves.push_back(lastCol);
+		height[lastCol]++;
+	}
 	srand(time(NULL));
 	int move;
 	do { 
-		move = rand()%3 + lastCol-1;
+		if (lastCol == -1) {
+			move = rand()%Ncols;
+		} else {
+			move = rand()%3 + lastCol-1;
+			if (move < 0) move = 0;
+			if (move >= Ncols) move = Ncols;
+		}
 	} while (height[move] >= Nrows);
 	height[move]++;
 	return move+1;
