@@ -1,3 +1,6 @@
+#ifndef PLAYER_H
+#define PLAYER_H
+
 #include <cstdio>
 #include <cstdlib>
 #include <vector>
@@ -18,4 +21,4 @@ public:
 
 };
 
-
+#endif

@@ -1,3 +1,6 @@
+#ifndef BOT_H
+#define BOT_H
+
 #include <cstdio>
 #include <cstdlib>
 #include <vector>
@@ -18,4 +21,4 @@ public:
 
 };
 
-
+#endif

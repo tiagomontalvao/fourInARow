@@ -1,12 +1,7 @@
-#include <cstdio>
-#include <cstdlib>
-#include <vector>
-#include <ctime>
-using namespace std;
-
 #include "bot.h"
 
 Bot::Bot (int _Nrows, int _Ncols) {
+	srand(time(NULL));
 	Nrows = _Nrows;
 	Ncols = _Ncols;
 	height.resize(Ncols, 0);

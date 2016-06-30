@@ -1,9 +1,3 @@
-#include <cstdio>
-#include <cstdlib>
-#include <vector>
-#include <ctime>
-using namespace std;
-
 #include "player.h"
 
 Player::Player (int _Nrows, int _Ncols) {
@@ -25,6 +19,6 @@ int Player::getMove(pair<int,int> lastMove) {
 		scanf("%d", &move);
 	}
 	height[move]++;
-	return move+1;
+	return move;
 }
 
