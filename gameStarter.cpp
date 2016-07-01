@@ -5,7 +5,6 @@
 #include "fourInARow.h"
 
 int main() {
-	srand(time(NULL));
 	FourInARow game;
 	game.startGame();
 	return 0;

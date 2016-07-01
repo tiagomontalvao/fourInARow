@@ -15,7 +15,7 @@ using namespace std;
 class FourInARow {
 public:
 
-	int turn;
+	int turn, nPieces;
 	Grid grid;
 	Player *player1, *player2;
 
@@ -27,6 +27,7 @@ public:
 
 	void startMessage();
 	void startGame();
+	bool finished(Grid& grid);
 
 };
 

@@ -23,9 +23,9 @@ public:
 	Grid ();
 	Grid (int _Nrows, int _Ncols);
 
-	void printTable();
+	void printTable(int turn);
 	bool won();
-	void makeMove(int mov, int& turn);
+	void makeMove(int mov, int turn);
 
 };
 

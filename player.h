@@ -14,7 +14,8 @@ public:
 	vector<int> height;
 	vector<int> lastEnemyMoves;
 
-	Player () {}
+	Player() {}
+	~Player() {}
 	Player (int _Nrows, int _Ncols);
 
 	virtual int getMove(pair<int,int> lastMove);
