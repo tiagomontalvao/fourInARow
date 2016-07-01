@@ -2,7 +2,7 @@
 
 FourInARow::FourInARow () {
 	nPieces = 0;
-	turn = 0;
+	turn = 1;
 }
 FourInARow::FourInARow (int _turn) {
 	nPieces = 0;
@@ -24,11 +24,11 @@ bool FourInARow::finished(Grid& grid) {
 }
 
 void FourInARow::startGame() {
+	srand(time(NULL));
 	int optionChoosen;
 	
 	while (true) {
 		startMessage();
-		srand(time(NULL));
 		scanf("%d", &optionChoosen);
 		while (optionChoosen < 1 or optionChoosen > 5) {
 			startMessage();
@@ -36,22 +36,31 @@ void FourInARow::startGame() {
 			scanf("%d", &optionChoosen);
 		}
 		
+		scanf("%*c");
 		switch (optionChoosen) {
 			case 1:
 				player1 = new Human(Nrows, Ncols);
 				player2 = new Human(Nrows, Ncols);
+				printf("Nome #1: "); scanf("%s", nome1);
+				printf("Nome #2: "); scanf("%s", nome2);
 				break;
 			case 2:
 				player1 = new Human(Nrows, Ncols);
 				player2 = new Bot(Nrows, Ncols);
+				printf("Nome #1: "); scanf("%s", nome1);
+				strcpy(nome2, "Bot");
 				break;
 			case 3:
 				player1 = new Bot(Nrows, Ncols);
 				player2 = new Human(Nrows, Ncols);
+				strcpy(nome1, "Bot");
+				printf("Nome #2: "); scanf("%s", nome2);
 				break;
 			case 4:
 				player1 = new Bot(Nrows, Ncols);
 				player2 = new Bot(Nrows, Ncols);
+				strcpy(nome1, "Bot #1");
+				strcpy(nome2, "Bot #2");
 				break;
 			case 5:
 				return;
@@ -60,22 +69,24 @@ void FourInARow::startGame() {
 		nPieces = 0;
 		grid = Grid(Nrows, Ncols);
 		do {
-			grid.printTable(turn);
+			turn = 1 - turn;
+			grid.printTable(turn, nome1, nome2);
 			if (turn == 0) {
-				grid.makeMove(player1->getMove(grid.piece), turn);
+				grid.makeMove(player1->getMove(grid.piece), turn, nome1, nome2);
 			} else {
-				grid.makeMove(player2->getMove(grid.piece), turn);
+				grid.makeMove(player2->getMove(grid.piece), turn, nome1, nome2);
 			}
 			nPieces++;
-			turn = 1 - turn;
 		} while (!finished(grid));
-		grid.printTable(turn);
+		grid.printTable(turn, nome1, nome2);
 		
-		if (nPieces == Nrows*Ncols) {
+		if (!grid.won()) {
 			puts("It's a tie\n");
 		} else {	
-			// for (int i = 0; i < )
-			printf("Player %d won!\n\n", 2-turn);
+			if (turn == 0)
+				printf(BLU "%s won!\n\n" RESET, nome1);
+			else
+				printf(YEL "%s won!\n\n" RESET, nome2);
 		}
 	}
 }

@@ -3,6 +3,7 @@
 
 #include <cstdio>
 #include <cstdlib>
+#include <cstring>
 #include <vector>
 #include <unistd.h>
 using namespace std;
@@ -18,6 +19,7 @@ public:
 	int turn, nPieces;
 	Grid grid;
 	Player *player1, *player2;
+	char nome1[16], nome2[16];
 
 	static const int Nrows = 6;
 	static const int Ncols = 7;

@@ -17,7 +17,7 @@ Grid::Grid (int _Nrows, int _Ncols) {
 	piece = make_pair(-1,-1);
 }
 
-void Grid::printTable(int turn) {
+void Grid::printTable(int turn, const char *nome1, const char *nome2) {
 	system("clear");
 	printf("+");
 	for (int i = 0; i < Ncols; i++)
@@ -47,16 +47,16 @@ void Grid::printTable(int turn) {
 		printf(" %d -", i+1);
 	puts("\n");
 	if (turn == 0)
-		printf(BLU "Player 1 " RESET);
+		printf(BLU "%-14s " RESET, nome1);
 	else
-		printf("Player 1 ");
-	for (int i = 0; i < Ncols-4; i++)
-		printf("    ");
+		printf("%-14s ", nome1);
+	// for (int i = 0; i < Ncols-2; i++)
+		// printf("    ");
 
 	if (turn == 1)
-		printf(YEL "Player 2 " RESET);
+		printf(YEL "%14s" RESET, nome2);
 	else
-		printf("Player 2 ");
+		printf("%14s", nome2);
 	puts("\n");
 }
 
@@ -112,7 +112,7 @@ bool Grid::won() {
 	return false;
 }
 
-void Grid::makeMove(int mov, int turn) {
+void Grid::makeMove(int mov, int turn, const char *nome1, const char *nome2) {
 	mov--;
 	if (height[mov] == Nrows or mov < 0 or mov >= Ncols) {
 		printf("Invalid move of player #%d\n", turn+1);
@@ -120,7 +120,7 @@ void Grid::makeMove(int mov, int turn) {
 	}
 	for (int i = 0; i <= Nrows-1-height[mov]; i++) {
 		grid[i][mov] = turn ? 2 : 1;
-		printTable(turn);
+		printTable(turn, nome1, nome2);
 		usleep(60000);		
 		grid[i][mov] = 0;
 	}
