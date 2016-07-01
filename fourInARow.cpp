@@ -1,30 +1,65 @@
-#include <cstdio>
-#include <cstdlib>
-#include <vector>
-#include <ctime>
-using namespace std;
+#include "fourInARow.h"
 
-#include "bot.h"
-#include "player.h"
-#include "grid.h"
+FourInARow::FourInARow () {
+	turn = 0;
+}
+FourInARow::FourInARow (int _turn) {
+	turn = _turn;
+}
 
-int Nrows, Ncols;
+void FourInARow::startMessage() {
+	system("clear");
+	puts("Choose one:");
+	puts("(1): Human vs Human");
+	puts("(2): Human vs Bot");
+	puts("(3): Bot vs Human");
+	puts("(4): Bot vs Bot");
+	puts("(5): Exit");
+}
 
-int main() {
-	int turn = 0;
-	Nrows = 6; Ncols = 7;
-	Bot bot(Nrows, Ncols);
-	Player player(Nrows, Ncols);
-	Grid grid(Nrows, Ncols);
+
+void FourInARow::startGame() {
+	int optionChoosen;
+	
+	startMessage();
+	scanf("%d", &optionChoosen);
+	while (optionChoosen < 1 or optionChoosen > 5) {
+		startMessage();
+		printf("Invalid option. Choose a number in the range [1,4]: ");
+		scanf("%d", &optionChoosen);
+	}
+	
+	switch (optionChoosen) {
+		case 1:
+			player1 = new Human(Nrows, Ncols);
+			player2 = new Human(Nrows, Ncols);
+			break;
+		case 2:
+			player1 = new Human(Nrows, Ncols);
+			player2 = new Bot(Nrows, Ncols);
+			break;
+		case 3:
+			player1 = new Bot(Nrows, Ncols);
+			player2 = new Human(Nrows, Ncols);
+			break;
+		case 4:
+			player1 = new Bot(Nrows, Ncols);
+			player2 = new Bot(Nrows, Ncols);
+			break;
+		case 5:
+			return;
+	}
+	
+	grid = Grid(Nrows, Ncols);
 	do {
 		grid.printTable();
-		if (turn == 1) {
-			grid.makeMove(bot.getMove(grid.piece), turn);
+		if (turn == 0) {
+			grid.makeMove(player1->getMove(grid.piece), turn);
 		} else {
-			grid.makeMove(player.getMove(grid.piece), turn);
+			grid.makeMove(player2->getMove(grid.piece), turn);
 		}
 	} while (!grid.won());
 	grid.printTable();
 	printf("You %s!\n", turn ? "won" : "lost");
-	return 0;
+
 }

@@ -1,11 +1,6 @@
 #include "bot.h"
 
-Bot::Bot (int _Nrows, int _Ncols) {
-	srand(time(NULL));
-	Nrows = _Nrows;
-	Ncols = _Ncols;
-	height.resize(Ncols, 0);
-}
+Bot::Bot (int _Nrows, int _Ncols) : Player(_Nrows, _Ncols) {}
 
 int Bot::getMove(pair<int,int> lastMove) {
 	int lastCol = -1;
@@ -14,7 +9,6 @@ int Bot::getMove(pair<int,int> lastMove) {
 		lastEnemyMoves.push_back(lastCol);
 		height[lastCol]++;
 	}
-	srand(time(NULL));
 	int move;
 	do { 
 		if (lastCol == -1) {
