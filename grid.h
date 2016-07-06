@@ -18,7 +18,7 @@ public:
 	vector<int> height;
 	vector<vector<int>> grid;
 	vector<int> lastEnemyMoves;
-	pair<int,int> piece = {-1,-1};
+	pair<int,int> piece;
 
 	Grid ();
 	Grid (int _Nrows, int _Ncols);

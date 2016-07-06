@@ -2,7 +2,7 @@
 
 FourInARow::FourInARow () {
 	nPieces = 0;
-	turn = 1;
+	turn = 0;
 }
 FourInARow::FourInARow (int _turn) {
 	nPieces = 0;

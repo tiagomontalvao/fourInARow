@@ -13,11 +13,18 @@ int Bot::getMove(pair<int,int> lastMove) {
 	do { 
 		if (lastCol == -1) {
 			move = rand()%Ncols;
-		} else {
-			move = rand()%3 + lastCol-1;
-			if (move < 0) move = 0;
-			if (move >= Ncols) move = Ncols;
+			continue;
 		}
+
+		// Código responsável pela IA do bot
+		// ----------- início --------------
+		
+		move = rand()%3 + lastCol-1;
+		if (move < 0) move = 0;
+		if (move >= Ncols) move = Ncols;
+
+		// ------------ fim ----------------
+
 	} while (height[move] >= Nrows);
 	height[move]++;
 	return move+1;
