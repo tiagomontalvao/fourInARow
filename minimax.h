@@ -12,7 +12,8 @@ using namespace std;
 class Minimax {
 public:
 
-	enum sequence {one, twoInARow, threeInARow, twoSplit, threeSplit};
+	int sequence[16] = {0, 1, 10, 11, 100, 101, 110, 111, 1000, 1001, 1010, 1011, 1100, 1101, 1110, 1111};
+	int pontuation[16] = {0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4};
 	int pont[5] = {1, 2, 3, 4, 5};
 
 	int Nrows, Ncols, score;
@@ -22,6 +23,8 @@ public:
 	Minimax (const Grid& grid);
 
 	void calcScore(int turn);
+	void printScore(int turn);
+	int valueSequence(int value);
 
 };
 

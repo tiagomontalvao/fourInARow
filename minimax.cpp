@@ -1,4 +1,6 @@
 #include "minimax.h"
+#include <cmath>
+using namespace std;
 
 Minimax::Minimax () {
 	score = 0;
@@ -14,21 +16,24 @@ Minimax::Minimax (const Grid& _grid) {
 void Minimax::calcScore(int player) {
 	// player: 0 ou 1
 	// grid:   1 ou 2
+	score = 0;
 	int enemy = 2-player;
 
 	// horizontal
 	for (int i = 0; i < Nrows; i++) {
 		for (int j = 0; j < Ncols-3; j++) {
 			int dentroDaMascara = 0;
-			for (int k = j; k < j+4; k++) {
-				if (grid[i][k] == enemy) {
+			for (int k = 0; k < 4; k++) {
+				if (grid[i][j+k] == enemy) {
 					dentroDaMascara = 0;
 					break;
 				}
-				dentroDaMascara++;
+				if (grid[i][j+k] == player + 1){
+				    dentroDaMascara += pow(10,(3-k));
+				}
 			}
 			// mexer no peso
-			score += dentroDaMascara;
+			score += valueSequence(dentroDaMascara);
 		}
 	}
 
@@ -36,15 +41,17 @@ void Minimax::calcScore(int player) {
 	for (int i = 0; i < Nrows-3; i++) {
 		for (int j = 0; j < Ncols; j++) {
 			int dentroDaMascara = 0;
-			for (int k = i; k < i+4; k++) {
-				if (grid[k][j] == enemy) {
+			for (int k = 0; k < 4; k++) {
+				if (grid[i+k][j] == enemy) {
 					dentroDaMascara = 0;
 					break;
 				}
-				dentroDaMascara++;
+				if (grid[i+k][j] == player + 1){
+				    dentroDaMascara += pow(10,(3-k));
+				}
 			}
 			// mexer no peso
-			score += dentroDaMascara;
+			score += valueSequence(dentroDaMascara);
 		}
 	}
 
@@ -57,10 +64,12 @@ void Minimax::calcScore(int player) {
 					dentroDaMascara = 0;
 					break;
 				}
-				dentroDaMascara++;
+				if (grid[i+k][j+k] == player + 1){
+				    dentroDaMascara += pow(10,(3-k));
+				}
 			}
 			// mexer no peso
-			score += dentroDaMascara;
+			score += valueSequence(dentroDaMascara);
 		}
 	}
 
@@ -73,11 +82,31 @@ void Minimax::calcScore(int player) {
 					dentroDaMascara = 0;
 					break;
 				}
-				dentroDaMascara++;
+				if (grid[i-k][j+k] == player + 1){
+				    dentroDaMascara += pow(10,(3-k));
+				}
 			}
 			// mexer no peso
-			score += dentroDaMascara;
-		}
+			score += valueSequence(dentroDaMascara);
+	    }
 	}
-	printf("%d\n", score);
+}
+
+
+int Minimax::valueSequence(int value) {
+    for (int i = 0; i < 16; i++){
+        if (value == sequence[i]){
+            return pontuation[i];
+        }
+    }
+    return 999999; //Return ERROR   
+}
+void Minimax::printScore(int turn) {
+    printf("Player: %d", turn+1);
+    /*for(int i = 0; i < 16; i++){
+        printf("%d ", sequence[i]);
+    }*/
+    puts("");
+    printf("%d\n", score);
+    puts("--------");
 }

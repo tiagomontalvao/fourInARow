@@ -71,6 +71,11 @@ void FourInARow::startGame() {
 		do {
 			turn = 1 - turn;
 			grid.printTable(turn, nome1, nome2);
+			Minimax minimax(grid);
+			minimax.calcScore(turn);
+			minimax.printScore(turn);
+			minimax.calcScore(1-turn);
+			minimax.printScore(1-turn);
 			if (turn == 0) {
 				grid.makeMove(player1->getMove(grid.piece), turn, nome1, nome2);
 			} else {

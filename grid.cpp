@@ -126,6 +126,4 @@ void Grid::makeMove(int mov, int turn, const char *nome1, const char *nome2) {
 	}
 	piece = make_pair(Nrows-1-height[mov], mov);
 	grid[Nrows-1-height[mov]++][mov] = turn ? 2 : 1;
-	Minimax minimax(this);
-	minimax.calcScore();
 }

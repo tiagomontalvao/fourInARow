@@ -12,6 +12,7 @@ using namespace std;
 #include "human.h"
 #include "bot.h"
 #include "grid.h"
+#include "minimax.h"
 
 class FourInARow {
 public:

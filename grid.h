@@ -7,8 +7,6 @@
 #include <unistd.h>
 using namespace std;
 
-#include "minimax.h"
-
 #define YEL   "\x1B[33m"
 #define BLU   "\x1B[34m"
 #define RESET "\x1B[0m"
