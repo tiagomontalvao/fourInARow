@@ -2,7 +2,7 @@
 
 FourInARow::FourInARow () {
 	nPieces = 0;
-	turn = 0;
+	turn = 1;
 }
 FourInARow::FourInARow (int _turn) {
 	nPieces = 0;
@@ -39,26 +39,26 @@ void FourInARow::startGame() {
 		scanf("%*c");
 		switch (optionChoosen) {
 			case 1:
-				player1 = new Human(Nrows, Ncols);
-				player2 = new Human(Nrows, Ncols);
+				player[0] = new Human(Nrows, Ncols);
+				player[1] = new Human(Nrows, Ncols);
 				printf("Nome #1: "); scanf("%s", nome1);
 				printf("Nome #2: "); scanf("%s", nome2);
 				break;
 			case 2:
-				player1 = new Human(Nrows, Ncols);
-				player2 = new Bot(Nrows, Ncols);
+				player[0] = new Human(Nrows, Ncols);
+				player[1] = new Bot(Nrows, Ncols);
 				printf("Nome #1: "); scanf("%s", nome1);
 				strcpy(nome2, "Bot");
 				break;
 			case 3:
-				player1 = new Bot(Nrows, Ncols);
-				player2 = new Human(Nrows, Ncols);
+				player[0] = new Bot(Nrows, Ncols);
+				player[1] = new Human(Nrows, Ncols);
 				strcpy(nome1, "Bot");
 				printf("Nome #2: "); scanf("%s", nome2);
 				break;
 			case 4:
-				player1 = new Bot(Nrows, Ncols);
-				player2 = new Bot(Nrows, Ncols);
+				player[0] = new Bot(Nrows, Ncols);
+				player[1] = new Bot(Nrows, Ncols);
 				strcpy(nome1, "Bot #1");
 				strcpy(nome2, "Bot #2");
 				break;
@@ -71,16 +71,18 @@ void FourInARow::startGame() {
 		do {
 			turn = 1 - turn;
 			grid.printTable(turn, nome1, nome2);
-			Minimax minimax(grid);
-			minimax.calcScore(turn);
-			minimax.printScore(turn);
-			minimax.calcScore(1-turn);
-			minimax.printScore(1-turn);
-			if (turn == 0) {
-				grid.makeMove(player1->getMove(grid.piece), turn, nome1, nome2);
+			if (player[turn]->toString() == "Bot") {
+				Minimax minimax(grid, turn);
+				// minimax.score = minimax.calcScore(turn);
+				// minimax.printScore(turn);
+				// minimax.score = minimax.calcScore(1-turn);
+				// minimax.printScore(1-turn);
+				minimax.recurse(0);
+				grid.makeMove(minimax.nextMove, turn, nome1, nome2);
 			} else {
-				grid.makeMove(player2->getMove(grid.piece), turn, nome1, nome2);
+				grid.makeMove(player[turn]->getMove(grid.piece), turn, nome1, nome2);
 			}
+			
 			nPieces++;
 		} while (!finished(grid));
 		grid.printTable(turn, nome1, nome2);

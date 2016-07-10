@@ -3,8 +3,8 @@
 
 #include <cstdio>
 #include <cstdlib>
+#include <string>
 #include <vector>
-#include <ctime>
 using namespace std;
 
 class Player {
@@ -19,6 +19,7 @@ public:
 	Player (int _Nrows, int _Ncols);
 
 	virtual int getMove(pair<int,int> lastMove);
+	virtual string toString();
 
 };
 

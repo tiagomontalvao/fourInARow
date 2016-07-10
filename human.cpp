@@ -18,3 +18,6 @@ int Human::getMove(pair<int,int> lastMove) {
 	return move;
 }
 
+string Human::toString() {
+	return "Human";
+}

@@ -19,7 +19,7 @@ public:
 
 	int turn, nPieces;
 	Grid grid;
-	Player *player1, *player2;
+	Player *player[2];
 	char nome1[16], nome2[16];
 
 	static const int Nrows = 6;
