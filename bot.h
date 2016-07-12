@@ -4,7 +4,6 @@
 #include <cstdio>
 #include <cstdlib>
 #include <vector>
-#include <ctime>
 using namespace std;
 
 #include "player.h"
@@ -16,6 +15,7 @@ public:
 	Bot (int _Nrows, int _Ncols);
 
 	int getMove(pair<int,int> lastMove);
+	string toString();
 
 };
 

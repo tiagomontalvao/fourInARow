@@ -10,3 +10,6 @@ int Player::getMove(pair<int,int> lastMove) {
 	return 1;
 }
 
+string Player::toString() {
+	return "Player";
+}

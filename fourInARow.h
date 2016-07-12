@@ -12,13 +12,14 @@ using namespace std;
 #include "human.h"
 #include "bot.h"
 #include "grid.h"
+#include "minimax.h"
 
 class FourInARow {
 public:
 
 	int turn, nPieces;
 	Grid grid;
-	Player *player1, *player2;
+	Player *player[2];
 	char nome1[16], nome2[16];
 
 	static const int Nrows = 6;
@@ -29,7 +30,7 @@ public:
 
 	void startMessage();
 	void startGame();
-	bool finished(Grid& grid);
+	bool finished(Grid& grid, int turn);
 
 };
 

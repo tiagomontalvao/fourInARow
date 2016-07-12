@@ -30,3 +30,6 @@ int Bot::getMove(pair<int,int> lastMove) {
 	return move+1;
 }
 
+string Bot::toString() {
+	return "Bot";
+}
