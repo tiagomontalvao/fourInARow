@@ -91,7 +91,6 @@ int Minimax::calcScore(int player) {
 	return scoreRetornado;
 }
 
-
 int Minimax::valueSequence(int value) {
     for (int i = 0; i < 16; i++){
         if (value == sequence[i]){
@@ -100,6 +99,7 @@ int Minimax::valueSequence(int value) {
     }
     return ERROR_SEQ; //Return ERROR   
 }
+
 void Minimax::printScore(int player) {
     printf("Player: %d", player);
     /*for(int i = 0; i < 16; i++){
@@ -113,7 +113,7 @@ void Minimax::printScore(int player) {
 int Minimax::recurse(int level) {
 	int ret = (level&1) ? INF: -INF;
 	if (level == maxLevel)
-		return calcScore(turn) - 2*calcScore(1-turn);
+		return 2*calcScore(turn) - 3*calcScore(1-turn);
 	if (level > maxLevel)
 		return -ret;
 	function<int(int,int)> cmp = [level] (int a, int b) -> int {
@@ -123,12 +123,12 @@ int Minimax::recurse(int level) {
 	int move = -1, rec;
 	for (int i = 0; i < grid.Ncols; i++) {
 		if (grid.height[i] == grid.Nrows) continue;
-			grid.grid[grid.Nrows-1-grid.height[i]++][i] = player;
-			rec = recurse(level+1);
-			ret = cmp(ret, rec);
-			if (ret == rec)
-				move = i;
-			grid.grid[grid.Nrows-1- --grid.height[i]][i] = 0;
+		grid.grid[grid.Nrows-1-grid.height[i]++][i] = player;
+		rec = recurse(level+1);
+		ret = cmp(ret, rec);
+		if (ret == rec)
+			move = i;
+		grid.grid[grid.Nrows-1- --grid.height[i]][i] = 0;
 	}
 	if (level == 0) {
 		nextMove = move+1;

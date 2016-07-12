@@ -30,7 +30,7 @@ public:
 
 	void startMessage();
 	void startGame();
-	bool finished(Grid& grid);
+	bool finished(Grid& grid, int turn);
 
 };
 

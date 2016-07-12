@@ -5,4 +5,4 @@ Compile with:
 make
 
 Run with:
-./fourInARow
+./game

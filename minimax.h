@@ -16,7 +16,7 @@ public:
 	const int maxLevel = 5;
 
 	int sequence[16] =  { 0, 1, 10, 11, 100, 101, 110, 111, 1000, 1001, 1010, 1011, 1100, 1101, 1110, 1111};
-	int pontuation[16] = {0, 1,  1,  4,   1,   5,   4, 100,    1,    2,    5,   10,    4,   10,  100,  INF};
+	int pontuation[16] = {0, 1,  1,  4,   1,   5,   4, 100,    1,    2,    5,   10,    4,   10,  100, 1000};
 
 	int turn, score, nextMove;
 	Grid grid;

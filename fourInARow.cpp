@@ -19,8 +19,8 @@ void FourInARow::startMessage() {
 	puts("(5): Exit");
 }
 
-bool FourInARow::finished(Grid& grid) {
-	return (grid.won() or nPieces == Nrows*Ncols);
+bool FourInARow::finished(Grid& grid, int turn) {
+	return (grid.won(turn, 1) or nPieces == Nrows*Ncols);
 }
 
 void FourInARow::startGame() {
@@ -32,7 +32,7 @@ void FourInARow::startGame() {
 		scanf("%d", &optionChoosen);
 		while (optionChoosen < 1 or optionChoosen > 5) {
 			startMessage();
-			printf("Invalid option. Choose a number in the range [1,4]: ");
+			printf("Invalid option. Choose a number in the range [1,5]: ");
 			scanf("%d", &optionChoosen);
 		}
 		
@@ -67,10 +67,11 @@ void FourInARow::startGame() {
 		}
 		
 		nPieces = 0;
-		grid = Grid(Nrows, Ncols);
+		grid = Grid(Nrows, Ncols, nome1, nome2);
+		printf("meh\n"); fflush(stdout);
 		do {
 			turn = 1 - turn;
-			grid.printTable(turn, nome1, nome2);
+			grid.printTable(turn);
 			if (player[turn]->toString() == "Bot") {
 				Minimax minimax(grid, turn);
 				// minimax.score = minimax.calcScore(turn);
@@ -78,16 +79,16 @@ void FourInARow::startGame() {
 				// minimax.score = minimax.calcScore(1-turn);
 				// minimax.printScore(1-turn);
 				minimax.recurse(0);
-				grid.makeMove(minimax.nextMove, turn, nome1, nome2);
+				grid.makeMove(minimax.nextMove, turn);
 			} else {
-				grid.makeMove(player[turn]->getMove(grid.piece), turn, nome1, nome2);
+				grid.makeMove(player[turn]->getMove(grid.piece), turn);
 			}
 			
 			nPieces++;
-		} while (!finished(grid));
-		grid.printTable(turn, nome1, nome2);
+		} while (!finished(grid, turn));
+		grid.printTable(turn);
 		
-		if (!grid.won()) {
+		if (!grid.won(turn, 0)) {
 			puts("It's a tie\n");
 		} else {	
 			if (turn == 0)
