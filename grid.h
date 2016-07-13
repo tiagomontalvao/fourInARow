@@ -26,11 +26,12 @@ public:
 	pair<int,int> piece;
 
 	Grid ();
+	Grid (int _Nrows, int _Ncols);
 	Grid (int _Nrows, int _Ncols, const char *nome1, const char* nome2);
 
 	void printTable(int turn);
 	bool won(int turn, int draw);
-	void makeMove(int mov, int turn);
+	void makeMove(int mov, int turn, int draw);
 	void printWinningTable(int row, int col, int drow, int dcol, int turn);
 
 };

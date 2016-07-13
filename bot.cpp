@@ -1,33 +1,19 @@
 #include "bot.h"
 
-Bot::Bot (int _Nrows, int _Ncols) : Player(_Nrows, _Ncols) {}
+Bot::Bot (int _player, int _Nrows, int _Ncols) : Player(_player, _Nrows, _Ncols) {
+	grid = Grid(_Nrows, _Ncols);
+}
 
 int Bot::getMove(pair<int,int> lastMove) {
-	int lastCol = -1;
 	if (lastMove != make_pair(-1,-1)) {
-		lastCol = lastMove.second;
-		lastEnemyMoves.push_back(lastCol);
-		height[lastCol]++;
+		grid.makeMove(lastMove.second+1, 1-player, 0);
 	}
-	int move;
-	do { 
-		if (lastCol == -1) {
-			move = rand()%Ncols;
-			continue;
-		}
-
-		// Código responsável pela IA do bot
-		// ----------- início --------------
-		
-		move = rand()%3 + lastCol-1;
-		if (move < 0) move = 0;
-		if (move >= Ncols) move = Ncols;
-
-		// ------------ fim ----------------
-
-	} while (height[move] >= Nrows);
-	height[move]++;
-	return move+1;
+	Minimax minimax(grid, player);
+	minimax.recurse(0);
+	int move = minimax.nextMove;
+	grid.printTable(player);
+	grid.makeMove(move, player, 0);
+	return move;
 }
 
 string Bot::toString() {
