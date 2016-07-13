@@ -6,14 +6,18 @@
 #include <vector>
 using namespace std;
 
+#include "neuron.h"
+
 class Layer {
 public:
 
 	vector<Neuron> neurons;
-
+	int nNeurons;
+	Layer* prevLayer;
 	Layer () {}
-	Layer (int n_layers);
+	Layer (int nNeurons, prevLayer);
 
+	void setWeights(vector<double> weights);
 
 };
 

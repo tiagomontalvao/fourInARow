@@ -1,7 +1,11 @@
 #include "net.h"
 
-Net::Net(int n_layers) {
-
+Net::Net(vector<int> neuronsPerLayer) {
+	nLayers = neuronsPerLayer.size();
+	layers.resize(nLayers);
+	for (int i = 0; i < neuronsPerLayer.size(); ++i) {
+		layers[i] = Layer(neuronsPerLayer[i]);
+	}
 }
 
 int Net::outputToClass(vector<int> output) {
@@ -16,4 +20,11 @@ vector<int> Net::ClassToOutput(int classe) {
 	vector<int> output(7, 0);
 	output[classe-1] = 1;
 	return output;
+}
+
+void Net::readInput(string fileName){
+	strining file = "";
+	for (int i = 0; i < 42; ++i) { //Trocar 42 por Ncols * Nrows
+		layers[0].setNeuronValue(i, file[i]-'0');
+	}
 }

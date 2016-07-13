@@ -3,18 +3,28 @@
 
 #include <cstdio>
 #include <cstdlib>
+#include <cmath>
 #include <vector>
 using namespace std;
+
+#include "layer.h"
 
 class Neuron {
 public:
 
-	int value;
+	double value;
+	double activeValue;
+	// pesos incidentes
+	vector<double> weights;
+	Layer* prevLayer;
 
 	Neuron () {}
+	Neuron (Layer* prevLayer);
+	Neuron (Layer* prevLayer, vector<double> weights);
 
-	void getInput(int v);
-	int propagate();
+	void calcValue();
+	void activate();
+	void setWeights(vector<double> weights);
 
 };
 

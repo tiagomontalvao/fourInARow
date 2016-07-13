@@ -79,7 +79,7 @@ void FourInARow::startGame() {
 		
 		if (!grid.won(turn, 0)) {
 			puts("It's a tie\n");
-		} else {	
+		} else {
 			if (turn == 0)
 				printf(BLU "%s won!\n\n" RESET, nome1);
 			else
