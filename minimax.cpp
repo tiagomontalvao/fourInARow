@@ -114,11 +114,11 @@ int Minimax::recurse(int level) {
 	int ret = (level&1) ? INF: -INF;
 	if (level == maxLevel)
 		return 2*calcScore(turn) - 3*calcScore(1-turn);
-	if (level > maxLevel)
-		return -ret;
+
 	function<int(int,int)> cmp = [level] (int a, int b) -> int {
 		return (level&1) ? min(a,b) : max(a,b);
 	};
+
 	int player = 1 + (turn ^ (level&1));
 	int move = -1, rec;
 	for (int i = 0; i < grid.Ncols; i++) {
@@ -130,10 +130,7 @@ int Minimax::recurse(int level) {
 			move = i;
 		grid.grid[grid.Nrows-1- --grid.height[i]][i] = 0;
 	}
-	if (level == 0) {
+	if (level == 0)
 		nextMove = move+1;
-		// printf("move: %d\n", move+1);
-	}
-	// printf("%d %d\n", ret, cmp(1, 2));
 	return ret;
 }

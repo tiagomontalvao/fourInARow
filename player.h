@@ -10,13 +10,12 @@ using namespace std;
 class Player {
 public:
 
-	int Nrows, Ncols;
+	int player, Nrows, Ncols;
 	vector<int> height;
-	vector<int> lastEnemyMoves;
 
 	Player() {}
 	~Player() {}
-	Player (int _Nrows, int _Ncols);
+	Player (int _player, int _Nrows, int _Ncols);
 
 	virtual int getMove(pair<int,int> lastMove);
 	virtual string toString();

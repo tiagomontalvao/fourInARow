@@ -39,26 +39,26 @@ void FourInARow::startGame() {
 		scanf("%*c");
 		switch (optionChoosen) {
 			case 1:
-				player[0] = new Human(Nrows, Ncols);
-				player[1] = new Human(Nrows, Ncols);
+				player[0] = new Human(0, Nrows, Ncols);
+				player[1] = new Human(1, Nrows, Ncols);
 				printf("Nome #1: "); scanf("%s", nome1);
 				printf("Nome #2: "); scanf("%s", nome2);
 				break;
 			case 2:
-				player[0] = new Human(Nrows, Ncols);
-				player[1] = new Bot(Nrows, Ncols);
+				player[0] = new Human(0, Nrows, Ncols);
+				player[1] = new Bot(1, Nrows, Ncols);
 				printf("Nome #1: "); scanf("%s", nome1);
 				strcpy(nome2, "Bot");
 				break;
 			case 3:
-				player[0] = new Bot(Nrows, Ncols);
-				player[1] = new Human(Nrows, Ncols);
+				player[0] = new Bot(0, Nrows, Ncols);
+				player[1] = new Human(1, Nrows, Ncols);
 				strcpy(nome1, "Bot");
 				printf("Nome #2: "); scanf("%s", nome2);
 				break;
 			case 4:
-				player[0] = new Bot(Nrows, Ncols);
-				player[1] = new Bot(Nrows, Ncols);
+				player[0] = new Bot(0, Nrows, Ncols);
+				player[1] = new Bot(1, Nrows, Ncols);
 				strcpy(nome1, "Bot #1");
 				strcpy(nome2, "Bot #2");
 				break;
@@ -72,18 +72,7 @@ void FourInARow::startGame() {
 		do {
 			turn = 1 - turn;
 			grid.printTable(turn);
-			if (player[turn]->toString() == "Bot") {
-				Minimax minimax(grid, turn);
-				// minimax.score = minimax.calcScore(turn);
-				// minimax.printScore(turn);
-				// minimax.score = minimax.calcScore(1-turn);
-				// minimax.printScore(1-turn);
-				minimax.recurse(0);
-				grid.makeMove(minimax.nextMove, turn);
-			} else {
-				grid.makeMove(player[turn]->getMove(grid.piece), turn);
-			}
-			
+			grid.makeMove(player[turn]->getMove(grid.piece), turn, 1);
 			nPieces++;
 		} while (!finished(grid, turn));
 		grid.printTable(turn);

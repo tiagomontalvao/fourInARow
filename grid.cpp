@@ -8,6 +8,14 @@ Grid::Grid() {
 	piece = make_pair(-1,-1);
 }
 
+Grid::Grid (int _Nrows, int _Ncols) {
+	Nrows = _Nrows;
+	Ncols = _Ncols;
+	height.resize(Ncols, 0);
+	grid.resize(Nrows, vector<int>(Ncols, 0));
+	piece = make_pair(-1,-1);
+}
+
 Grid::Grid (int _Nrows, int _Ncols, const char *_nome1, const char *_nome2) {
 	Nrows = _Nrows;
 	Ncols = _Ncols;
@@ -143,17 +151,19 @@ bool Grid::won(int turn, int draw) {
 	return false;
 }
 
-void Grid::makeMove(int mov, int turn) {
+void Grid::makeMove(int mov, int turn, int draw) {
 	mov--;
 	if (height[mov] == Nrows or mov < 0 or mov >= Ncols) {
 		printf("Invalid move of player #%d\n", turn+1);
 		exit(0);
 	}
-	for (int i = 0; i <= Nrows-1-height[mov]; i++) {
-		grid[i][mov] = turn ? 2 : 1;
-		printTable(turn);
-		usleep(60000);		
-		grid[i][mov] = 0;
+	if (draw) {
+		for (int i = 0; i <= Nrows-1-height[mov]; i++) {
+			grid[i][mov] = turn ? 2 : 1;
+			printTable(turn);
+			usleep(60000);		
+			grid[i][mov] = 0;
+		}
 	}
 	piece = make_pair(Nrows-1-height[mov], mov);
 	grid[Nrows-1-height[mov]++][mov] = turn ? 2 : 1;
